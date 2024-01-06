@@ -6,9 +6,7 @@ const {
 } = require('../../../middlewares/authMiddleware');
 
 function validateUserCredentials(email, password) {
-    if (!email || !password) {
-        return res.status(400).json({ error: 'email and password required' });
-    }
+    return !!(email && password);
 }
 
 // https://www.youtube.com/watch?v=nukNITdis9g&list=PL4cUxeGkcC9iqqESP8335DA5cRFp8loyp&index=5
@@ -46,7 +44,9 @@ async function signupUser(req, res) {
 async function loginUser(req, res) {
     const { email, password } = req.body;
 
-    validateUserCredentials(email, password);
+    if (!validateUserCredentials(email, password)) {
+        res.status(400).json({ error: 'email and password required' });
+    }
 
     const user = await User.findOne({ email });
 

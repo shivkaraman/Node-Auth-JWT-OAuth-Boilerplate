@@ -1,8 +1,6 @@
 const signupForm = document.querySelector('form.signup');
 const loginForm = document.querySelector('form.login');
-
-console.log(signupForm);
-console.log(loginForm);
+``;
 
 const emailError = document.querySelector('.email.error');
 const passwordError = document.querySelector('.password.error');
@@ -41,6 +39,13 @@ async function signup() {
     }
 }
 
+async function loginWithGoogle() {
+    try {
+        await fetch('/auth/google');
+    } catch (err) {
+        console.log(err);
+    }
+}
 async function login() {
     const email = loginForm.email.value;
     const password = loginForm.password.value;
@@ -92,5 +97,10 @@ signupForm?.addEventListener('submit', async (e) => {
 
 loginForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    login();
+    const loginType = e.target;
+    console.log(loginType);
+});
+
+document.querySelector('button.google').addEventListener('click', (e) => {
+    loginWithGoogle();
 });

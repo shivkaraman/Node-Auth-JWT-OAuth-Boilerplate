@@ -4,6 +4,7 @@ const cors = require('cors');
 
 //Routers
 const jwtRouter = require('./routes/authentication/jwt/jwt.router.js');
+const OAuthRouter = require('./routes/authentication/oauth/oauth2.router.js');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -26,5 +27,6 @@ app.get('/auth/login', (req, res) => {
 
 //Routers
 app.use(jwtRouter);
+app.use(OAuthRouter);
 
 module.exports = app;
